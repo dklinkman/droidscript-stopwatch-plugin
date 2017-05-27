@@ -1,0 +1,207 @@
+<!DOCTYPE html> 
+<html>
+
+<head>
+    <title>Stopwatch</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+</head> 
+<!-- /use &emsp; as tabs &nbsp; as space -->
+
+<body> 
+
+<div data-role="page" data-theme="a">
+
+	<div data-role="header" data-position="fixed">
+		<a href='#' class='ui-btn-left' data-icon='arrow-l' data-theme="c" onclick="history.back(); return false">Back</a>
+		<h1>Stopwatch Plugin</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		<p>In order to use Stopwatch functions plugin, you must first load 
+		the plugin at the top of your script using the <b>LoadPlugin</b> method 
+		like this:</p>
+     
+		<div class="samp">
+			<div id="plug1">
+			// Load the Stopwatch plugin<br>
+			app.LoadPlugin( "Stopwatch" );<br>
+ 		</div>
+		<div name="divCopy" align="right">
+			<a href="#" data-role="button" data-mini="true" data-inline="true" onclick="copy(plug1)">&nbsp;&nbsp;Copy&nbsp;&nbsp;</a>
+		</div>
+	</div>
+
+	<p>Then you can create an instance of the plugin object when you need it like this:</p>
+ 
+		<div class="samp">
+			<div id="plug2">
+			&emsp;plg = app.CreateStopwatch( );</div>
+			<div name="divCopy" align="right">
+				<a href="#" data-role="button" data-mini="true" data-inline="true" onclick="copy(plug2)">&emsp;Copy&emsp;</a>
+			</div>
+		</div>        
+
+		<br>
+		<p><span style="color:#0099CC"><large><b>Version Information</b></large></span><br>
+		You can get the plugin version by calling <b>GetVersion( )</b> for program use or 
+		toast display the version by calling <b>ShowVersion( )</b><br>
+		<br>
+		<large><b>Methods:</b></large>
+		<br>
+		<div data-role="collapsible" data-collapsed="true"  data-mini="true" data-theme="a" data-content-theme="b">
+			<h3>GetVersion( ) - returns string</h3>
+			<style="font-size:100%">
+			&emsp;- returns version string
+		</div>
+		<div data-role="collapsible" data-collapsed="true"  data-mini="true" data-theme="a" data-content-theme="b">
+			<h3>ShowVersion( )</h3>
+			<style="font-size:100%">
+			&emsp;- toast display the version number
+		</div>
+		<br>
+		<large><b>Example:</b></large>
+		</p>
+		<div data-role="collapsible" data-collapsed="true"  data-mini="true" data-theme="a" data-content-theme="b">
+			<h3>Example - Get / Show Version</h3>
+			<div id="sam_ver" style="font-size:80%">
+				app.LoadPlugin("Stopwatch");<br>
+				<br>
+				function OnStart( ) {<br>
+				&emsp;lay=app.CreateLayout("Linear","VCenter,FillXY");<br>
+				<br>
+				&emsp;// make buttons on screen<br>
+				&emsp;btn = app.CreateButton("Get Version",0.3,-1,'gray');<br>
+				&emsp;btn.SetTextSize(18);<br>
+				&emsp;btn.SetOnTouch(btnGetVer);<br>
+				&emsp;lay.AddChild(btn);<br>
+				<br>
+				&emsp;btn = app.CreateButton("Show Version",0.3,-1,'gray');<br>
+				&emsp;btn.SetTextSize(18);<br>
+				&emsp;btn.SetOnTouch(btnShowVer);<br>
+				&emsp;lay.AddChild(btn);<br>
+				<br>
+				&emsp;btn = app.CreateButton("Exit",0.3,-1,'gray');<br>
+				&emsp;btn.SetTextSize(18);<br>
+				&emsp;btn.SetOnTouch(btnExit);<br>
+				&emsp;lay.AddChild(btn);<br>
+				<br>
+				&emsp;app.AddLayout(lay);<br>
+				}<br>
+				<br>
+				function btnGetVer( ) {<br>
+				<b id="sam_snip"  style="font-size:100%">
+				&emsp;plg = app.CreateStopwatch( );<br>
+				&emsp;app.ShowPopup( 'Stopwatch version '+plg.GetVersion( ), 'bottom,short' );</b><br>
+				}<br>
+				<br>
+				function btnShowVer( ) {<br>
+				&emsp;plg = app.CreateStopwatch( );<br>
+				&emsp;plg.ShowVersion();<br>
+				}<br>
+				<br>
+				function btnExit( ) { app.Exit( ); }<br>
+			</div>
+			<div name="divCopy" align="right">
+			<a href="#" data-role="button" data-mini="true" data-inline="true" onclick="copy(sam_snip)">&emsp;&emsp;Copy&emsp;&emsp;</a>
+			<a href="#" data-role="button" data-mini="true" data-inline="true" onclick="copy(sam_ver)">Copy All</a>
+			<a href="#" data-role="button" data-mini="true" data-inline="true" onclick="demo(sam_ver)">&nbsp;&nbsp;&nbsp;Run&nbsp;&nbsp;&nbsp;</a>
+			</div>
+		</div>
+		
+		<p>You must issue a <b>Start( )</b> function to start the timer
+		when an action is complete a <b>Stop( )</b> function should be declared.</p>
+		<br>
+		To compare the time passed between two points of time.
+		The <b>Time( option )</b> function takes an optional <b>"milli"</b> option
+		that provides time accuracy to the milliseconds.<br>
+		<br>
+		<large><b>Example:</b></large>
+		</p>
+		<div data-role="collapsible" data-collapsed="true"  data-mini="true" data-theme="a" data-content-theme="b">
+			<h3>Example - Stopwatch</h3>
+			<div id="examp2" style="font-size:80%">
+				app.LoadPlugin("Stopwatch");<br>
+				<br>
+				//called when the application is started.<br>
+				function OnStart( ) {<br>
+				&emsp;lay = app.CreateLayout("Linear","VCenter,FillXY");<br>
+				<br>
+				&emsp;// create screen buttons<br>
+				&emsp;btn1 = app.CreateButton("Start",0.5,-1,'gray');<br>
+				&emsp;btn1.SetTextSize( 18 );<br>
+				&emsp;btn1.SetOnTouch( StartClock );<br>
+				<br>
+				&emsp;btn2 = app.CreateButton("Elapse Time",0.5,-1,'gray');<br>
+				&emsp;btn2.SetTextSize( 18 );<br>
+				&emsp;btn2.SetOnTouch( StopClock );<br>
+				<br>
+				&emsp;btn3 = app.CreateButton("Exit",0.5,-1,'gray');<br>
+				&emsp;btn3.SetTextSize( 18 );<br>
+				&emsp;btn3.SetOnTouch( Exit );<br>
+				<br>
+				&emsp;// layout the screen<br>
+				&emsp;lay.AddChild( btn1 );<br>
+				&emsp;lay.AddChild( btn2 );<br>
+				&emsp;lay.AddChild( btn3 );<br>
+				&emsp;app.AddLayout( lay );<br>
+				<br>
+				&emsp;plg_sw = app.CreateStopwatch( );<br>
+				}<br>
+				<br>
+				// start the clock<br>
+				function StartClock( ) {<br>
+				&emsp;plg_sw.Start( );<br>
+				&emsp;app.ShowPopup('Starting the clock','bottom');<br>
+				}<br>
+				<br>
+				// stop the clock<br>
+				function StopClock( ) {<br>
+				&emsp;plg_sw.Stop( );<br>
+				&emsp;app.ShowPopup('Time Elapsed: '+plg_sw.Time('milli'),'bottom');<br>
+				}<br>
+				<br>
+				// exit the app<br>
+				function Exit( ) {<br>
+				&emsp;app.Exit();<br>
+				}<br>
+				<br>
+			</div>
+			<div name="divCopy" align="right">
+			<a href="#" data-role="button" data-mini="true" data-inline="true" onclick="copy(examp2)">Copy All</a>
+			<a href="#" data-role="button" data-mini="true" data-inline="true" onclick="demo(examp2)">&emsp;Run&emsp;</a>
+			</div>
+		</div>
+		
+		<br>
+		<p>The following methods are available on the Stopwatch object:</p>
+		<div data-role="collapsible" data-collapsed="true"  data-mini="true" data-theme="a" data-content-theme="b">
+			<h3>Start( )</h3>
+			<style="font-size:100%">
+			&emsp;- Start the timer
+		</div>
+		<div data-role="collapsible" data-collapsed="true"  data-mini="true" data-theme="a" data-content-theme="b">
+			<h3>Stop( )</h3>
+			<style="font-size:100%">
+			&emsp;- Stop the timer
+		</div>
+		<div data-role="collapsible" data-collapsed="true"  data-mini="true" data-theme="a" data-content-theme="b">
+			<h3>Time( option ) - returns string</h3>
+			<style="font-size:100%">
+			&emsp;<b>option</b> (optional) - option <b>milli</b> for accuracy to the milliseconds<br>
+			<br>
+			&emsp;- handles milliseconds, seconds, minutes, hours, days of time since started<br>
+			<br>
+			&emsp;- returns a time formatted string of days, hours, mins, secs, milliseconds
+		</div>
+
+		<br>
+		<p>This DS Code plugin was written by Nelson Tengkiat, it is free to 
+		use in your projects. <b> A credit line if used would be nice :)</b>
+		</p>
+
+	</div><!-- /content -->
+	
+</div><!-- /page -->
+
+</body>
+</html>
