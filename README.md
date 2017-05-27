@@ -1,2 +1,2 @@
 # droidscript-stopwatch-plugin
-StopWatch Plugin from DroidScript Wiki
+Stopwatch Plugin from DroidScript Wiki
